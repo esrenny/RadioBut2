@@ -1,0 +1,102 @@
+
+
+#Importaciones
+from tkinter import *
+import os
+from PIL import Image,ImageTk
+
+ruta= os.path.dirname(__file__)
+#ruta de imagenes
+carpeta_imagenes=os.path.join(ruta,'Imagenes')
+carpeta_personas=os.path.join(carpeta_imagenes,"personas")
+
+#Creación de la ventana principal
+root = Tk()
+#Configuaracion de root
+root.configure(background='gray98')
+#tamaño de la ventana
+#root.geometry('400x500+1800+75')
+#Título de la ventana
+root.title("Practica de RadioButton")
+
+#Creacion de marco
+marco1=LabelFrame(root,
+                    text='Seleccione un usuario:',
+                    padx=10,
+                    pady=10,
+                    background='gray98',
+                    border=0)
+marco1.pack(padx=10,pady=10)
+
+#carga de imagenes
+#persona 1
+figura1=ImageTk.PhotoImage(Image.open(os.path.join(carpeta_personas,"boy_1.png")).resize((200,200)))
+etiqueta1=Label(marco1, image=figura1, background='gray98')
+etiqueta1.grid(row=0,column=0)
+#persona 2
+figura2=ImageTk.PhotoImage(Image.open(os.path.join(carpeta_personas,"boy_2.png")).resize((200,200)))
+etiqueta2=Label(marco1, image=figura2, background='gray98')
+etiqueta2.grid(row=0,column=1)
+#persona 3
+figura3=ImageTk.PhotoImage(Image.open(os.path.join(carpeta_personas,"girl_1.png")).resize((200,200)))
+etiqueta3=Label(marco1, image=figura3, background='gray98')
+etiqueta3.grid(row=2,column=0)
+#persona 4
+figura4=ImageTk.PhotoImage(Image.open(os.path.join(carpeta_personas,"boy_3.png")).resize((200,200)))
+etiqueta4=Label(marco1, image=figura4,background='gray98')
+etiqueta4.grid(row=2,column=1)
+
+opcion=StringVar()
+opcion.set("Error")
+
+#Radiobutton
+Radiobutton(marco1,
+           text="Pedro",
+           variable=opcion,
+           bg='green1',
+           value='Pedro'
+           ).grid(row=1,column=0)
+
+Radiobutton(marco1,
+           text="Jose",
+           variable=opcion,
+           bg='steelblue1',
+           value='Jose',
+           ).grid(row=1,column=1)
+
+Radiobutton(marco1,
+           text="Maria",
+           variable=opcion,
+           bg='hotpink',
+           value='Maria'
+           ).grid(row=3,column=0)
+
+Radiobutton(marco1,
+           text="Ramon",
+           variable=opcion,
+           bg='SlateBlue2',
+           value='Ramon'
+           ).grid(row=3,column=1)
+
+# Función para el botón de envío
+def actualiza_radio():
+    if opcion.get() == "Error":
+        Label(root, 
+        text=f"¡No has seleccionado ninguna cuenta! Por favor, inténtelo de nuevo",
+        background="gray98",
+        foreground="red2").pack()
+    else:
+         Label(root, 
+         text=f"Hola {opcion.get()}. Accediendo a tu cuenta personal...",
+         background="gray98"
+         ).pack()
+
+# Botón de envío
+
+boton_envia = Button(root,
+           text="Entrar",
+           command=actualiza_radio,
+           ).pack(pady=10)
+
+#Bucle de ejecución
+root.mainloop()
